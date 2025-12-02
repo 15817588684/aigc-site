@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2025 AI生成物著作权法律资源库</title>
+<style>
+:root{--main:#2c3e50;--sub:#ecf0f1;--accent:#3498db;}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans SC",sans-serif;background:var(--sub);color:#333;}
+header{background:linear-gradient(135deg,var(--main) 0%,#4a6491 100%);color:#fff;text-align:center;padding:3rem 1rem;}
+header h1{font-size:2rem;margin:0;}header p{font-size:1.1rem;margin:.5rem 0 0;}
+.container{max-width:1200px;margin:auto;padding:1rem;}
+.search-box{background:#fff;border-radius:8px;padding:1rem;margin-bottom:1rem;box-shadow:0 2px 6px rgba(0,0,0,.08);}
+.search-box input{width:100%;padding:.75rem;font-size:1rem;border:1px solid #ced4da;border-radius:4px;}
+.tab-bar{display:flex;gap:1rem;margin-bottom:1rem;}
+.tab-bar button{flex:1;padding:.75rem;font-size:1rem;border:none;border-radius:50px;background:#fff;color:var(--main);cursor:pointer;transition:.3s;}
+.tab-bar button.active{background:var(--accent);color:#fff;}
+.content{display:none;}
+.content.active{display:block;}
+.row{display:flex;flex-wrap:wrap;gap:1rem;}
+.card{background:#fff;border-radius:8px;padding:1rem;flex:1 1 300px;display:flex;flex-direction:column;box-shadow:0 2px 6px rgba(0,0,0,.08);}
+.card h5{margin:.5rem 0;font-size:1.1rem;color:var(--main);}
+.card .btn{margin-top:auto;align-self:flex-end;border-radius:50px;padding:.5rem 1rem;font-size:.9rem;}
+a.btn{background:var(--accent);color:#fff;text-decoration:none;}
+a.btn:hover{filter:brightness(1.1);}
+.highlight{background:#fffb00;color:#000;}
+@media (max-width:768px){header h1{font-size:1.5rem;}.card{flex:1 1 100%;}}
+</style>
+</head>
+<body>
+<header>
+  <h1>2025 AI生成物著作权法律资源库</h1>
+  <p>国家法律法规 · 典型案例 · 一键直达</p>
+</header>
+
+<div class="container">
+  <!-- 搜索框 -->
+  <div class="search-box">
+    <input id="searchInput" type="text" placeholder="输入关键词搜索法规或案例…" />
+  </div>
+
+  <!-- 标签切换 -->
+  <div class="tab-bar">
+    <button class="active" onclick="switchTab('laws')">法律法规</button>
+    <button onclick="switchTab('cases')">典型案例</button>
+  </div>
+
+  <!-- 法律法规内容 -->
+  <section id="laws" class="content active">
+    <div class="row" id="lawsBox"></div>
+  </section>
+
+  <!-- 典型案例内容 -->
+  <section id="cases" class="content">
+    <div class="row" id="casesBox"></div>
+  </section>
+</div>
+
+<footer style="text-align:center;padding:2rem 0;font-size:0.9rem;color:#777;">
+  © 2025 AI生成物著作权法律资源库
+</footer>
+
+<script>
+// ====================== 数据 ======================
+const lawsData = [
+  {
+    title: "《著作权法（2020）》第三条",
+    tag: "国家法律",
+    summary: "明确作品定义及保护范围，为AI生成内容定性提供基础。",
+    url: "https://flk.npc.gov.cn/detail2.html?ZmY4MDgxODE3YmI2NjEwMTdiYjQxN2I2MTlmOWEyMGY"
+  },
+  {
+    title: "《著作权法（2020）》第九条",
+    tag: "国家法律",
+    summary: "界定著作权人范围，涉及AI创作主体认定。",
+    url: "https://flk.npc.gov.cn/detail2.html?ZmY4MDgxODE3YmI2NjEwMTdiYjQxN2I2MTlmOWEyMGY"
+  },
+  {
+    title: "《生成式AI服务管理暂行办法》第四条",
+    tag: "部门规章",
+    summary: "强调尊重知识产权，禁止侵犯他人著作权。",
+    url: "https://flk.npc.gov.cn/detail2.html?NDMxMTVmYjQ3YTQyNDE0ZjY4YTlmOTI5"
+  },
+  {
+    title: "《生成式AI服务管理暂行办法》第七条",
+    tag: "部门规章",
+    summary: "要求训练数据来源合法，明确版权审查义务。",
+    url: "https://flk.npc.gov.cn/detail2.html?NDMxMTVmYjQ3YTQyNDE0ZjY4YTlmOTI5"
+  },
+  {
+    title: "《深度合成管理规定》第十一条",
+    tag: "部门规章",
+    summary: "深度合成内容需标识，防止版权侵权扩散。",
+    url: "https://flk.npc.gov.cn/detail2.html?ZGY4MjBjYjQ3YzQ4NGE0ZjkwYTlmOTI5"
+  },
+  {
+    title: "《深度合成管理规定》第十四条",
+    tag: "部门规章",
+    summary: "平台建立投诉举报机制，保障权利人维权渠道。",
+    url: "https://flk.npc.gov.cn/detail2.html?ZGY4MjBjYjQ3YzQ4NGE0ZjkwYTlmOTI5"
+  }
+];
+
+const casesData = [
+  {
+    name: "Dreamwriter案",
+    court: "深圳南山法院",
+    time: "2020-03-19",
+    summary: "AI生成稿件被抄袭，法院认定提示词编排具备独创性，构成文字作品。",
+    meaning: "首次确认AI生成内容可受著作权法保护。",
+    url: "https://iprdaily.cn/mobile/news_39580.html"
+  },
+  {
+    name: "AI图片侵权案",
+    court: "北京互联网法院",
+    time: "2023-11-27",
+    summary: "原告使用AI绘图工具生成图片被侵权，法院认定图片具备独创性。",
+    meaning: "确立AI图片可享有著作权，提示词投入为独创性来源。",
+    url: "https://www.ciplawyer.cn/articles/157539.html"
+  },
+  {
+    name: "蝴蝶椅子案",
+    court: "广州知识产权法院",
+    time: "2022-08-30",
+    summary: "AI生成椅子外观被仿制，法院比较人类智力投入程度。",
+    meaning: "明确AI生成物保护需考查人类智力投入。",
+    url: "https://mp.weixin.qq.com/s/QFOySn_wOSDIXE8esqXM4w"
+  },
+  {
+    name: "林晨《伴心》案",
+    court: "南京中院",
+    time: "2025-03-12",
+    summary: "多轮提示词生成图片被商用，法院认定提示词编排具独创性。",
+    meaning: "江苏首例AI图片案，提示词独创性成焦点。",
+    url: "https://jsnews.jschina.com.cn/jsyw/202503/t20250312_s67d0be72e4b05777c1787aa4.shtml"
+  },
+  {
+    name: "春风送来了温柔案",
+    court: "北京互联网法院",
+    time: "2025-04-01",
+    summary: "AI文生图作品被未经授权商业使用，法院全额支持赔偿请求。",
+    meaning: "高额赔偿体现AI作品市场价值，强化权利保护。",
+    url: "http://www.bjwl.org.cn/wwwroot/wlw/publish/article/542/91766.shtml"
+  }
+];
+
+// ====================== 渲染 ======================
+function renderLaws(list){
+  const box=document.getElementById('lawsBox');box.innerHTML='';
+  list.forEach(item=>{
+    box.insertAdjacentHTML('beforeend',`
+      <div class="card">
+        <h5>${item.title}</h5>
+        <span class="badge bg-secondary mb-2">${item.tag}</span>
+        <p>${item.summary}</p>
+        <a href="${item.url}" target="_blank" class="btn">详情→</a>
+      </div>
+    `);
+  });
+}
+function renderCases(list){
+  const box=document.getElementById('casesBox');box.innerHTML='';
+  list.forEach(item=>{
+    box.insertAdjacentHTML('beforeend',`
+      <div class="card">
+        <h5>${item.name}</h5>
+        <div class="text-muted mb-1">${item.court} · ${item.time}</div>
+        <p>${item.summary}</p>
+        <p><strong>典型意义：</strong>${item.meaning}</p>
+        <a href="${item.url}" target="_blank" class="btn">查看详情→</a>
+      </div>
+    `);
+  });
+}
+
+// ====================== 切换 ======================
+function switchTab(tab){
+  document.querySelectorAll('.tab-bar button').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('laws').classList.toggle('active',tab==='laws');
+  document.getElementById('cases').classList.toggle('active',tab==='cases');
+}
+
+// ====================== 搜索+高亮 ======================
+document.getElementById('searchInput').addEventListener('input',e=>{
+  const kw=e.target.value.trim().toLowerCase();
+  const laws=document.querySelectorAll('#lawsBox .card');
+  const cases=document.querySelectorAll('#casesBox .card');
+  [...laws,...cases].forEach(card=>{
+    const txt=card.textContent.toLowerCase();
+    const match=txt.includes(kw);
+    card.style.display=match?'flex':'none';
+    // 高亮
+    card.innerHTML=card.innerHTML.replace(/<span class="highlight">|<\/span>/g,'');
+    if(match&&kw){
+      const reg=new RegExp(`(${kw})`,'gi');
+      card.innerHTML=card.innerHTML.replace(reg,'<span class="highlight">$1</span>');
+    }
+  });
+});
+
+// ====================== 初始化 ======================
+renderLaws(lawsData);renderCases(casesData);
+</script>
+</body>
+</html>
