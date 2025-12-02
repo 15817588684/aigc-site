@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Latest Achievements | AIGC Copyright Research</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>body{font-family:'Noto Sans SC',sans-serif;background:#ecf0f1;color:#333}
+.hero-papers{background:linear-gradient(135deg,#2c3e50 0%,#4a6491 100%);color:#fff;border-radius:0 0 20px 20px;margin-top:56px}
+.card-box{display:none}
+.card-box.active{display:flex}
+.btn-lang{border-radius:50px;min-width:120px}
+footer{background:#2c3e50;color:#fff}</style>
+</head><body>
+<nav class="navbar navbar-expand-sm navbar-dark fixed-top" style="background:#2c3e50"><div class="container">
+<a class="navbar-brand" href="index.html">AIGC Copyright Research</a>
+<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+<div class="collapse navbar-collapse" id="navbarNav"><ul class="navbar-nav ms-auto">
+<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+<li class="nav-item"><a class="nav-link active" href="papers.html">Latest</a></li>
+<li class="nav-item"><a class="nav-link" href="media-report.html">Media</a></li>
+</ul></div></div></nav>
+<header class="hero-papers"><div class="container text-center py-5"><h1 class="fw-bold mb-3">Latest Achievements</h1><p class="lead">Bilingual papers on AI-generated content and copyright challenges</p></div></header>
+<section class="py-4"><div class="container text-center"><div class="btn-group" role="group"><button class="btn btn-outline-light btn-lang active" onclick="switchLang('zh')">中文成果</button><button class="btn btn-outline-light btn-lang" onclick="switchLang('en')">English Papers</button></div></div></section>
+<section class="py-5"><div class="container"><div id="zh-box" class="card-box active"><div class="row g-4" id="zhCards"></div></div><div id="en-box" class="card-box"><div class="row g-4" id="enCards"></div></div></div></section>
+<footer class="text-center py-3"><small>© 2025 AIGC Copyright Research Group</small></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* 中文数据（成员B） */
+const zhPapers=[{title:"欧盟大模型知识产权保护",author:"邵永乐",abs:"基于欧盟AI法案…",link:"https://kns.cnki.net/kcms2/article/abstract?v=Jz-lw5xPjDad4t-eIOwJRKfkYjBnGq4quW91-m64YsjgBxBJOTdyHVeTLmXMjg12T-bsMH8io3YY0v3fjB9G5I5PJ6PWXYPNPcAL_EUDRRKSWetYQDP2INQUKiJ6tazuYuVrHZBRpLf0Ct4cONHizNZkTORYdUlyFnWbC_cuk50=&uniplatform=NZKPT"},
+{title:"从作品到数据：人工智能生成内容版权保护的分层构造",author:"高莉",abs:"提出「分层构造」模型…",link:"https://kns.cnki.net/kcms2/article/abstract?v=Jz-lw5xPjDZakYbg0O4LegATyq6WnzHBW8tnvNY0NpOEAED9Mo28IsHAXo-8Q0Kk4wk3Jk_fhc3h9UOIY_BnIbO-XUjJ8zVOWIPUKqgl7j2qlbuOgFWfGw2sxIUwiBfe8s1cN1v6bEa6M-2IHfTpH0Jl7qCxtiRGTGA2bC9K0ko="},
+{title:"基于生成式人工智能内容著作权认定的数据溯源困境与协同治理路径",author:"王若宇 胡神松",abs:"聚焦数据溯源难题…",link:"https://kns.cnki.net/kcms2/article/abstract?v=Jz-lw5xPjDYVrxT-FlncAJADNegmlUIVPiMfzo5LwlLsvjM9diblFkWc60qsgOGKl-JpTt3nyH4-KyTyGyh29Xs6b8eW_OF_4u23nxk2OQD7uMZ1ULTpbaD825V3f1lgSkb8FYwR5wIsy8L_nAUB7UmG6HF5dui-FBBmMcr_smI="},
+{title:"人工智能生成物著作权归属研究",author:"吴晓燕",abs:"系统梳理权属理论…",link:"https://kns.cnki.net/kcms2/article/abstract?v=Jz-lw5xPjDYBjmOy-j0uD5Y7gBIkJbTynFX0yennXPIfldGCeyjmZRzXiCa900XD9AgsPpD4_tXlR3EnLCdvRv94N2PaEKQiqPATIGtkSgTlGlREtKIm4yqtjt09_rjNcAuevV4vPCh6N6UQYwIx1O2W2zYRKq19Nk5uaWlESXo="}];
+/* 英文数据（成员C） */
+const enPapers=[{title:"Legal Implications of AI-Generated Content in the Era of Copyright Challenges",author:"Smith, J.",abs:"This paper examines the emerging legal challenges posed by AI-generated content under current copyright frameworks, proposing adaptive legislative solutions.",link:"https://scholar.cnki.net/Detail/index/GARBCLAST/SSBDAF2E8223C370B65EA119870EEB81EEFF",tag:"Copyright, AI Challenges"},
+{title:"Legal Rights Protection of AI-Generated Works from a Copyright Perspective",author:"Johnson, L.",abs:"The study analyzes the feasibility and necessity of granting copyright protection to AI-generated works from a comparative law perspective.",link:"https://scholar.cnki.net/Detail/index/GARJ2021_4/SJIWF801E860EF2FB7DA1109E57701E6631E",tag:"Copyright Perspective"},
+{title:"Authorship and Ownership Issues Arising from AI-Generated Works: A Comparative Analysis",author:"Lee, H.",abs:"This comparative study explores authorship and ownership disputes in AI-generated works across multiple jurisdictions, offering policy recommendations.",link:"https://scholar.cnki.net/Detail/index/GARJ2021_6/SJMDF57EA40679D6C19248E955B4451BC67D",tag:"Comparative Analysis"},
+{title:"Research on Copyright and Ownership of AI-Generated Products",author:"Wang, M.",abs:"The article investigates the allocation of copyright and ownership rights in AI-generated products, emphasizing economic and moral rights balance.",link:"https://scholar.cnki.net/Detail/index/GARJ2021_6/SQML9D3D5B37E73E80E96FDDCD0E6825BCED",tag:"Ownership Research"}];
+/* 渲染函数 */
+function renderCards(list,id){const box=document.getElementById(id);list.forEach((p,i)=>{box.insertAdjacentHTML('beforeend',`<div class="col-md-6 col-lg-3"><div class="card h-100 shadow-sm"><img src="cover${i+1}.jpg" class="card-img-top" alt="Cover"><div class="card-body d-flex flex-column"><h5 class="card-title">${p.title}</h5><p class="text-muted mb-2">Author: ${p.author}</p><p class="card-text flex-grow-1">${p.abs}</p><div class="d-flex justify-content-between align-items-center"><a href="${p.link}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="bi bi-box-arrow-up-right"></i> PDF</a><button class="btn btn-sm btn-secondary" onclick="navigator.clipboard.writeText('${p.title}')"><i class="bi bi-clipboard"></i> Cite</button></div><div class="mt-2"><span class="badge bg-secondary">${p.tag}</span></div></div></div></div>`);});}
+/* 初始化 */
+renderCards(zhPapers,'zhCards');renderCards(enPapers,'enCards');
+/* 语言切换 */
+function switchLang(lang){
+document.querySelectorAll('.btn-lang').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
+if(lang==='zh'){document.getElementById('zh-box').classList.add('active');document.getElementById('en-box').classList.remove('active');}
+else{document.getElementById('en-box').classList.add('active');document.getElementById('zh-box').classList.remove('active');}
+}
+</script>
+</body></html>
